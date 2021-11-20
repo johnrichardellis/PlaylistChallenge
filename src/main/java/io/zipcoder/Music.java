@@ -1,5 +1,9 @@
 package io.zipcoder;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Music {
 
     private String[] playList;
@@ -12,28 +16,31 @@ public class Music {
         // need to return Integer
         // result will be the MIN number of presses needed to reach song SELECTION
         // if else statements
-
+        List<String> list = new ArrayList<>(Arrays.asList(playList));
         int forward = 0;
         int backward = 0;
         int buttonPresses = 0;
 
-        for (int i = startIndex; i < playList.length; i++) {
-            if (!selection.equals(getPlayList()[i])) {
+        for (int i = startIndex; i <= list.size() - 1; i++) {
+            if (!selection.equals(list.get(i))) {
                 forward++;
             }
         }
 
-        for (int j = startIndex; j >= 0; j--) {
-            if (!selection.equals(getPlayList()[j])) {
-                backward++;
+        for (int j = startIndex; j <= list.size() - 1; j--) {
+            backward++;
+            if (selection.equals(list.get(list.size() - 1 - j))) {
+                break;
             }
         }
 
         if (forward < backward) {
             buttonPresses = forward;
-        } else if (backward == forward) {
+        }
+        if (backward == forward) {
             buttonPresses = forward;
-        } else {
+        }
+        if (backward < forward) {
             buttonPresses = backward;
         }
 
